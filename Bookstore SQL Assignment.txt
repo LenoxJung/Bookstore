@@ -1,0 +1,46 @@
+Exercise 1:
+SELECT editions.isbn FROM editions INNER JOIN publishers ON (editions.publisher_id = publishers.id) WHERE name = 'Random House';
+
+Exercise 2:
+SELECT books.title, editions.isbn FROM editions INNER JOIN publishers ON (editions.publisher_id = publishers.id) INNER JOIN books ON (editions.book_id = books.id) WHERE publishers.name = 'Random House';
+
+Exercise 3:
+SELECT books.title, editions.isbn, stock.stock, stock.retail FROM editions INNER JOIN publishers ON (editions.publisher_id = publishers.id) INNER JOIN books on (editions.book_id = books.id) INNER JOIN stock ON (editions.isbn = stock.isbn) WHERE publishers.name = 'Random House';
+
+Exercise 4:
+SELECT books.title, editions.isbn, stock.stock, stock.retail FROM editions INNER JOIN publishers ON (editions.publisher_id = publishers.id) INNER JOIN books on (editions.book_id = books.id) INNER JOIN stock ON (editions.isbn = stock.isbn) WHERE publishers.name = 'Random House' AND stock.stock != 0;
+
+Exercise 5: 
+SELECT type, CASE WHEN type = 'h' THEN 'hardcover' ELSE 'paperback' END FROM editions;
+
+Exercise 6:
+SELECT books.title, editions.publication FROM editions RIGHT OUTER JOIN books ON (editions.book_id = books.id);
+
+Exercise 7:
+SELECT sum(stock) FROM stock;
+
+Exercise 8: 
+SELECT avg(cost) AS average_cost, avg(retail) AS average_price, avg(retail - cost) AS average_profit FROM stock;
+
+Exercose 9:
+SELECT SUM(stock) AS "Stock count", book_id FROM stock LEFT JOIN editions ON stock.isbn = editions.isbn GROUP BY book_id ORDER BY "Stock count" DESC LIMIT 1;
+
+Exercise 10:
+SELECT authors.id AS "ID", concat(authors.first_name, ' ', authors.last_name) AS "Full Name", count(books.id) AS "Number of Books" FROM books INNER JOIN authors ON (books.author_id = authors.id) GROUP BY "ID";
+
+Exercise 11:
+SELECT authors.id AS "ID", concat(authors.first_name, ' ', authors.last_name) AS "Full Name", count(books.id) AS "Number of Books" FROM books INNER JOIN authors ON (books.author_id = authors.id) GROUP BY "ID" ORDER BY "Number of Books" DESC;
+
+Exercise 12:
+SELECT "Title" FROM (SELECT books.title AS "Title", count(DISTINCT type) AS "Number of Types", book_id FROM editions INNER JOIN books ON (editions.book_id = books.id) GROUP BY book_id, books.title) AS "Nested Table" WHERE "Number of Types" = 2;
+
+Exercise 13:
+SELECT name, count(editions.*) AS "number of editions published", ROUND(avg(retail),2) AS "Average Retail" FROM publishers LEFT JOIN editions ON publishers.id = editions.publisher_id LEFT JOIN stock on stock.isbn = editions.isbn group by publishers.id ORDER BY name;
+
+
+SELECT
+FROM
+WHERE
+GROUP BY
+HAVING 
+ORDER BY
